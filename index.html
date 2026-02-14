@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>حياتي ❤️</title>
+<style>
+body {
+    margin:0;
+    background-color:white;
+    font-family: Arial, sans-serif;
+    overflow:hidden;
+    text-align:center;
+}
+#mainHeart {
+    font-size:120px;
+    color:red;
+    margin-top:40px;
+}
+h1 {
+    font-size:28px;
+    margin-bottom:30px;
+}
+button {
+    font-size:20px;
+    padding:12px 25px;
+    border-radius:12px;
+    border:none;
+    cursor:pointer;
+    margin:10px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+}
+#yes {
+    background:#ff4d6d;
+    color:white;
+}
+#no {
+    background:#444;
+    color:white;
+}
+#result {
+    font-size:22px;
+    margin-top:30px;
+}
+#counter {
+    font-size:18px;
+    margin-top:20px;
+}
+.floatingHeart, .floatingFlower {
+    position:absolute;
+    font-size:20px;
+    animation:float 5s linear infinite;
+}
+@keyframes float {
+    0% {transform: translateY(0); opacity:1;}
+    100% {transform: translateY(-400px); opacity:0;}
+}
+</style>
+</head>
+<body>
+
+<div id="mainHeart">❤️</div>
+<h1>حياة بتحبيني؟</h1>
+
+<button id="yes" onclick="yes()">❤️ Yes</button>
+<button id="no" onclick="noPress()">💔 No</button>
+
+<div id="result"></div>
+<div id="counter"></div>
+
+<audio id="song" src="song.mp3"></audio>
+
+<script>
+// عداد الوقت بالإنجليزي من 28 Aug 2025
+let startDate = new Date("2025-08-28T00:00:00").getTime();
+setInterval(function(){
+    let now = new Date().getTime();
+    let diff = now - startDate;
+    let days = Math.floor(diff / (1000*60*60*24));
+    let hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+    let minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
+    let seconds = Math.floor((diff % (1000*60)) / 1000);
+    document.getElementById("counter").innerHTML =
+        days + " Days " + hours + " Hours " + minutes + " Minutes " + seconds + " Seconds";
+},1000);
+
+// تفاعلات No
+let noCount = 0;
+function noPress() {
+    noCount++;
+    if(noCount === 1) {
+        document.getElementById("result").innerHTML = "لا ياحقيرة 😅";
+    } else if(noCount === 2) {
+        document.getElementById("result").innerHTML = "ليش لا يا ام طيز 😜";
+    } else {
+        document.getElementById("result").innerHTML = "😂";
+    }
+}
+
+// تفاعل Yes
+function yes(){
+    document.getElementById("result").innerHTML =
+    "كنت بعرف ❤️، لأنك حياتي قبل ما يكون اسمك حياة، وأنا بحبك بنتي 🥰";
+
+    let song = document.getElementById("song");
+    song.currentTime = 0;
+    song.play();
+
+    // قلوب وورود متحركة
+    for(let i=0;i<15;i++){
+        let heart = document.createElement("div");
+        heart.className = "floatingHeart";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random()*window.innerWidth + "px";
+        heart.style.top = window.innerHeight + "px";
+        heart.style.fontSize = 20 + Math.random()*40 + "px";
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),5000);
+    }
+    for(let i=0;i<10;i++){
+        let flower = document.createElement("div");
+        flower.className = "floatingFlower";
+        flower.innerHTML = "🌹";
+        flower.style.left = Math.random()*window.innerWidth + "px";
+        flower.style.top = window.innerHeight + "px";
+        flower.style.fontSize = 20 + Math.random()*30 + "px";
+        document.body.appendChild(flower);
+        setTimeout(()=>flower.remove(),5000);
+    }
+}
+</script>
+</body>
+</html>
